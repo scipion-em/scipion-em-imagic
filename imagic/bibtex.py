@@ -1,7 +1,7 @@
 # coding: latin-1
 # **************************************************************************
 # *
-# * Authors:     Grigory Sharov (sharov@igbmc.fr)
+# * Authors:     Grigory Sharov (gsharov@mrc-lmb.cam.ac.uk)
 # *              J.M. De la Rosa Trevin (jmdelarosa@cnb.csic.es)
 # *
 # * Unidad de  Bioinformatica of Centro Nacional de Biotecnologia , CSIC
@@ -26,12 +26,6 @@
 # *
 # **************************************************************************
 """
-Bibtex string file for Imagic protocols.
-"""
-
-from pyworkflow.utils import parseBibTex
-
-_bibtexStr = """
 
 @article{Borland1990,
   author = {Borland, L. and van Heel, M.},
@@ -99,5 +93,3 @@ _bibtexStr = """
 }
 
 """
-
-_bibtex = parseBibTex(_bibtexStr)

@@ -1,6 +1,6 @@
 # **************************************************************************
 # *
-# * Authors:     Grigory Sharov (sharov@igbmc.fr)
+# * Authors:     Grigory Sharov (gsharov@mrc-lmb.cam.ac.uk)
 # *              J.M. De la Rosa Trevin (jmdelarosa@cnb.csic.es)
 # *
 # * Unidad de  Bioinformatica of Centro Nacional de Biotecnologia , CSIC
@@ -25,14 +25,38 @@
 # *
 # **************************************************************************
 """
-This modules contains constants related to Imagic protocols
+Some Imagic protocol base classes.
 """
 
-# ------------------ Constants values --------------------------------------
-# imagic documentation url
-IMAGIC_DOCS = 'http://imagescience.de/imagic.html'
+from pyworkflow.em import EMProtocol
+from imagic.scripts import runTemplate
 
-# MSA distances
-EUCLIDIAN = 0
-CHISQUARE = 1
-MODULATION = 2
+
+class ImagicProtocol(EMProtocol):
+    """ Sub-class of EMProtocol to group some common Imagic utils. """
+
+    def _getFileName(self, key):
+        """ Give a key, append the img extension
+        and prefix the protocol working dir.
+        """
+        template = '%(' + key + ')s' + '.img'
+
+        return self._getPath(template % self._params)
+
+    def runTemplate(self, inputScript, paramsDict):
+        """ This function will create a valid Imagic script
+        by copying the template and replacing the values in dictionary.
+        After the new file is read, the Imagic interpreter is invoked.
+        """
+        self._enterWorkingDir()
+
+        log = getattr(self, '_log', None)
+        runTemplate(inputScript, paramsDict, log)
+
+        self._leaveWorkingDir()
+
+        f = open(self.getLogPaths()[0], 'r')
+        for line in f.readlines():
+            if '**ERROR' in line:
+                raise Exception('IMAGIC script error!')
+        f.close()

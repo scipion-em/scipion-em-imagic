@@ -1,6 +1,6 @@
 # **************************************************************************
 # *
-# * Authors:     Grigory Sharov (sharov@igbmc.fr)
+# * Authors:     Grigory Sharov (gsharov@mrc-lmb.cam.ac.uk)
 # *              J.M. De la Rosa Trevin (jmdelarosa@cnb.csic.es)
 # *
 # * Unidad de  Bioinformatica of Centro Nacional de Biotecnologia , CSIC
@@ -25,89 +25,14 @@
 # *
 # **************************************************************************
 
-import os
-from os.path import join, dirname, abspath, isdir, exists
 import re
-
-from pyworkflow.utils import runJob, Environ
-from pyworkflow.utils.path import replaceBaseExt
+from pyworkflow.utils import runJob, Environ, join, replaceBaseExt
+import imagic
 
 END_HEADER = 'END BATCH HEADER'
-PATH = abspath(dirname(__file__))
-SCRIPTS_DIR = 'scripts'
-IMAGIC_DIR = 'IMAGIC_DIR'
-IMAGIC_HOME = 'IMAGIC_HOME'
-
 # Regular expression for parsing vars in script header
 # Match strings of the type "# key=value # some comment"
 REGEX_KEYVALUE = re.compile('(?P<var>\[?[a-zA-Z0-9_-]+\]?)=(?P<value>"\S+")(?P<suffix>\s+.*)')
-
-
-def getEnviron():
-    """ Load the environment variables needed for Imagic.
-    IMAGIC_ROOT is set to IMAGIC_HOME (previously IMAGIC_DIR)
-    MPI-related vars are set if IMAGIC_HOME/openmpi path exists
-    IMAGIC_BATCH is needed for batch files to work.
-    """
-    env, imagicdir = getImagicHomeDir()
-
-    if imagicdir is None or not isdir(imagicdir):
-        print "ERROR: Missing IMAGIC_HOME or IMAGIC_DIR variable in scipion.conf file or path does not exist."
-
-    else:
-        env.update({'IMAGIC_ROOT': imagicdir,
-                    'IMAGIC_BATCH': "1",
-                    'FFTW_IPATH': imagicdir + '/fftw/include',
-                    'FFTW_LPATH': imagicdir + '/fftw/lib',
-                    'FFTW_LIB': 'fftw3f'
-                    })
-
-        env.set('LD_LIBRARY_PATH', imagicdir + '/fftw/lib', env.BEGIN)
-        env.set('LD_LIBRARY_PATH', imagicdir + '/lib', env.BEGIN)
-
-    mpidir = imagicdir + '/openmpi'
-
-    if isdir(mpidir):
-        env.update({'MPIHOME': mpidir,
-                    'MPIBIN': mpidir + '/bin',
-                    'OPAL_PREFIX': mpidir
-                    })
-        env.set('PATH', mpidir + '/bin', env.BEGIN)
-
-    else:
-        print "Warning: IMAGIC_ROOT directory (", imagicdir, ") does not contain openmpi folder.\n", \
-              "No MPI support will be enabled."
-
-    return env
-
-
-def getImagicHomeDir():
-    env = Environ(os.environ)
-    imagicdir = env.getFirst((IMAGIC_HOME, IMAGIC_DIR), mandatory=True)  #
-    # Scipion
-    # definition
-    return env, imagicdir
-
-
-def getVersion():
-    env, imagicdir = getImagicHomeDir()
-    for v in getSupportedVersions():
-        versionFile = join(imagicdir, 'version_' + v)
-        if exists(versionFile):
-            return v
-    return ''
-
-
-def getSupportedVersions():
-    return ['110308', '160418']
-
-
-def _getFile(*paths):
-    return join(PATH, *paths)
-
-
-def getScript(*paths):
-    return _getFile(SCRIPTS_DIR, getVersion(), *paths)
 
 
 def __substituteVar(match, paramsDict, lineTemplate):
@@ -122,7 +47,7 @@ def writeScript(inputScript, outputScript, paramsDict):
     """ Create a new Imagic script by substituting
     params in the input 'paramsDict'.
     """
-    fIn = open(getScript(inputScript), 'r')
+    fIn = open(imagic.Plugin.getScript(inputScript), 'r')
     fOut = open(outputScript, 'w')
     inHeader = True  # After the end of header, no more value replacement
 
@@ -164,7 +89,7 @@ def runTemplate(inputScript, paramsDict, log=None, cwd=None):
 def runScript(inputScript, log=None, cwd=None):
     args = " %s" % inputScript
     shellPath = '/bin/bash'
-    runJob(log, shellPath, args, env=getEnviron(), cwd=cwd)
+    runJob(log, shellPath, args, env=imagic.Plugin.getEnviron(), cwd=cwd)
 
 
 class ImagicPltFile(object):

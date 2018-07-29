@@ -1,6 +1,6 @@
 # **************************************************************************
 # *
-# * Authors:     Grigory Sharov (sharov@igbmc.fr)
+# * Authors:     Grigory Sharov (gsharov@mrc-lmb.cam.ac.uk)
 # *              J.M. De la Rosa Trevin (jmdelarosa@cnb.csic.es)
 # *
 # * Unidad de  Bioinformatica of Centro Nacional de Biotecnologia , CSIC
@@ -25,12 +25,12 @@
 # *
 # **************************************************************************
 """
-This module implement some wizards
+This module implements some wizards
 """
 
 from pyworkflow.em.constants import UNIT_PIXEL
 from pyworkflow.em.wizard import ParticleMaskRadiusWizard
-from protocol import ImagicProtMSA
+from protocols.protocol_msa import ImagicProtMSA
 
 
 # ===============================================================================

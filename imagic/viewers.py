@@ -1,6 +1,6 @@
 # **************************************************************************
 # *
-# * Authors:     Grigory Sharov (sharov@igbmc.fr)
+# * Authors:     Grigory Sharov (gsharov@mrc-lmb.cam.ac.uk)
 # *              J.M. De la Rosa Trevin (jmdelarosa@cnb.csic.es)
 # *
 # * Unidad de  Bioinformatica of Centro Nacional de Biotecnologia , CSIC
@@ -31,7 +31,7 @@ from pyworkflow.protocol.params import *
 from pyworkflow.viewer import ProtocolViewer, DESKTOP_TKINTER, WEB_DJANGO
 from pyworkflow.em.viewer import DataView
 from pyworkflow.em.plotter import EmPlotter
-from protocol.protocol_msa import ImagicProtMSA
+from protocols.protocol_msa import ImagicProtMSA
 
 
 class ImagicViewerMSA(ProtocolViewer):
@@ -43,16 +43,24 @@ class ImagicViewerMSA(ProtocolViewer):
 
     def _defineParams(self, form):
         form.addSection(label='Visualization')
-        form.addParam('doShowEigenImages', LabelParam, label="Show eigenimages?", default=True)
-        form.addParam('doShowEigPixImages', LabelParam, expertLevel=LEVEL_ADVANCED,
-                      label="Show eigenvectors in pixel space?", default=True)
-        form.addParam('doShowPixelVecCoordImages', LabelParam, expertLevel=LEVEL_ADVANCED,
-                      label="Show eigenvectors in image space?", default=True)
+        form.addParam('doShowEigenImages', LabelParam,
+                      label="Show eigenimages?", default=True)
+        form.addParam('doShowEigPixImages', LabelParam,
+                      expertLevel=LEVEL_ADVANCED,
+                      label="Show eigenvectors in pixel space?",
+                      default=True)
+        form.addParam('doShowPixelVecCoordImages',
+                      LabelParam, expertLevel=LEVEL_ADVANCED,
+                      label="Show eigenvectors in image space?",
+                      default=True)
         form.addParam('doShowHistogram', LabelParam,
-                      label="Show eigenvalue histogram?", default=True)
-        form.addParam('doShowMsaLisFile', LabelParam, expertLevel=LEVEL_ADVANCED,
+                      label="Show eigenvalue histogram?",
+                      default=True)
+        form.addParam('doShowMsaLisFile', LabelParam,
+                      expertLevel=LEVEL_ADVANCED,
                       label="Show MSA lis file?", default=True)
-        form.addParam('doShowMsaPltFile', LabelParam, expertLevel=LEVEL_ADVANCED,
+        form.addParam('doShowMsaPltFile', LabelParam,
+                      expertLevel=LEVEL_ADVANCED,
                       label="Show MSA plt file?", default=True)
 
     def _getVisualizeDict(self):
@@ -97,7 +105,8 @@ class ImagicViewerMSA(ProtocolViewer):
 
         width = 0.85
         xplotter = EmPlotter()
-        a = xplotter.createSubPlot('Behaviour of sum of eigenvalues during analysis', 'Iteration number', '%')
+        a = xplotter.createSubPlot('Behaviour of sum of eigenvalues during analysis',
+                                   'Iteration number', '%')
         a.bar(iters, cumPercents, width, color='b')
 
         return [xplotter]

@@ -1,6 +1,6 @@
 # **************************************************************************
 # *
-# * Authors:     Grigory Sharov (sharov@igbmc.fr)
+# * Authors:     Grigory Sharov (gsharov@mrc-lmb.cam.ac.uk)
 # *              J.M. De la Rosa Trevin (jmdelarosa@cnb.csic.es)
 # *
 # * Unidad de  Bioinformatica of Centro Nacional de Biotecnologia , CSIC
@@ -30,7 +30,7 @@ from pyworkflow.protocol.params import PointerParam, IntParam, BooleanParam
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
 import pyworkflow.utils as pwutils
 
-from ..imagic import ImagicPltFile, ImagicLisFile
+from imagic.scripts import ImagicPltFile, ImagicLisFile
 from protocol_base import ImagicProtocol
 
 
@@ -51,47 +51,56 @@ class ImagicProtMSAClassify(ProtClassify2D, ImagicProtocol):
                         'msa_cls_img': 'classes'}
 
 
-# --------------------------- DEFINE param functions --------------------------------------------
+# --------------------------- DEFINE param functions --------------------------
 
     def _defineParams(self, form):
         form.addSection(label='Input')
-        form.addParam('inputMSA', PointerParam, label="Input particles", important=True,
+        form.addParam('inputMSA', PointerParam,
+                      label="Input particles", important=True,
                       pointerClass='ImagicProtMSA',
                       help='Input images after MSA')
         form.addParam('numberOfFactors', IntParam, default=15,
                       label='Number of eigenimages to use',
-                      help='Select the first N eigenimages to use for classification.\n'
-                           'Typically all but the first few are noisy.')
+                      help='Select the first N eigenimages to use for '
+                           'classification.\nTypically all but the first '
+                           'few are noisy.')
         form.addParam('numberOfClasses', IntParam, default=10,
                       label='Number of classes',
                       help='Desired number of classes.')
-        form.addParam('percentIgnore', IntParam, default=0, expertLevel=LEVEL_ADVANCED,
+        form.addParam('percentIgnore', IntParam, default=0,
+                      expertLevel=LEVEL_ADVANCED,
                       label='Percent of images to ignore',
-                      help='This option allows for a percentage of the original images to be ignored. '
-                           'The last individual images to be merged into a class are set inactive '
-                           'in the HAC algorithm. For noisy raw data a value of 15% could be tried, '
-                           'for example (this is STATISTICS, remember?).')
-        form.addParam('doDownweight', BooleanParam, default=False, expertLevel=LEVEL_ADVANCED,
+                      help='This option allows for a percentage of the '
+                           'original images to be ignored. The last individual '
+                           'images to be merged into a class are set inactive '
+                           'in the HAC algorithm. For noisy raw data a value '
+                           'of 15% could be tried, for example (this is '
+                           'STATISTICS, remember?).')
+        form.addParam('doDownweight', BooleanParam, default=False,
+                      expertLevel=LEVEL_ADVANCED,
                       label='Downweight small classes?',
-                      help='A consequence of downweighting small classes is that classes with only '
+                      help='A consequence of downweighting small classes '
+                           'is that classes with only '
                            'one member will contain only zeroes')
-        form.addParam('percentIgnoreBad', IntParam, default=0, expertLevel=LEVEL_ADVANCED,
+        form.addParam('percentIgnoreBad', IntParam, default=0,
+                      expertLevel=LEVEL_ADVANCED,
                       label='Percent of worst class members to ignore',
-                      help='Here you get a final chance to polish your classes. Since in the CLS file '
-                           'the sequence of images in a class is sorted by their contribution to the '
-                           'internal variance of that class, then  we can enhance the class qualities by '
-                           'ignoring the last images of each class. The fraction of the images to be ignored '
+                      help='Here you get a final chance to polish your '
+                           'classes. Since in the CLS file '
+                           'the sequence of images in a class is sorted by '
+                           'their contribution to the internal variance of '
+                           'that class, then  we can enhance the class '
+                           'qualities by ignoring the last images of each '
+                           'class. The fraction of the images to be ignored '
                            'is what you are supposed to specify here.')
 
-    # --------------------------- INSERT steps functions --------------------------------------------
+    # --------------------------- INSERT steps functions ----------------------
 
     def _insertAllSteps(self):
-
         self._insertFunctionStep('classifyStep')
-
         self._insertFunctionStep('createOutputStep')
 
-    # --------------------------- STEPS functions --------------------------------------------
+    # --------------------------- STEPS functions -----------------------------
 
     def classifyStep(self):
         """ Run MSA-CL and MSA-SUM from IMAGIC. """
@@ -143,7 +152,7 @@ class ImagicProtMSAClassify(ProtClassify2D, ImagicProtocol):
         self._defineOutputs(outputClasses=classes2D)
         self._defineSourceRelation(particles, classes2D)
 
-    # --------------------------- INFO functions --------------------------------------------
+    # --------------------------- INFO functions ------------------------------
 
     def _validate(self):
         errors = []
@@ -160,11 +169,12 @@ class ImagicProtMSAClassify(ProtClassify2D, ImagicProtocol):
 
     def _methods(self):
         msg = "\nInput particles after MSA run were divided into "
-        msg += "%s classes by hierarchical ascendant classification (HAC) " % self.numberOfClasses.get()
+        msg += "%s classes by hierarchical ascendant classification (HAC) " %\
+               self.numberOfClasses.get()
         msg += "using first %s eigenimages." % self.numberOfFactors.get()
         return [msg]
 
-    # --------------------------- UTILS functions --------------------------------------------
+    # --------------------------- UTILS functions -----------------------------
 
     def _getOutputPath(self, fn):
         """ Return the output file from the run directory and the CLASS dir. """

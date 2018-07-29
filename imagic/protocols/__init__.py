@@ -1,6 +1,6 @@
 # **************************************************************************
 # *
-# * Authors:     Grigory Sharov (sharov@igbmc.fr)
+# * Authors:     Grigory Sharov (gsharov@mrc-lmb.cam.ac.uk)
 # *              J.M. De la Rosa Trevin (jmdelarosa@cnb.csic.es)
 # *
 # * Unidad de  Bioinformatica of Centro Nacional de Biotecnologia , CSIC
@@ -24,31 +24,7 @@
 # *  e-mail address 'scipion@cnb.csic.es'
 # *
 # **************************************************************************
-"""
-This sub-package contains Imagic protocols
-"""
 
-from bibtex import _bibtex  # Load bibtex dict with references
-from imagic import *
-from protocol import *
-from wizard import ImagicProtMaskWizard
-from viewer_msa import ImagicViewerMSA
-
-_logo = "imagic_logo.png"
-_references = ['vanHeel1981', 'vanHeel1996', 'vanHeel2012']
-
-
-def validateInstallation():
-    """ This function will be used to check if package is properly installed."""
-    missingPaths = []
-
-    env, imagicDir = getImagicHomeDir()
-
-    if not os.path.exists(imagicDir):
-        missingPaths.append('%s,%s : None of the 2 variables points to and '
-                            'existing path' % (IMAGIC_DIR, IMAGIC_HOME))
-
-    if missingPaths:
-        return ["Missing variables:"] + missingPaths
-    else:
-        return [] # No errors
+from protocol_base import ImagicProtocol
+from protocol_msa import ImagicProtMSA
+from protocol_msa_classify import ImagicProtMSAClassify
