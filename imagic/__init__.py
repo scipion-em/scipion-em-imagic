@@ -27,41 +27,37 @@
 
 import os
 import pyworkflow.em
-from pyworkflow.utils import Environ, join
+from pyworkflow.utils import Environ
 
 _logo = "imagic_logo.png"
 _references = ['vanHeel1981', 'vanHeel1996', 'vanHeel2012']
 
-IMAGIC_HOME_VAR = 'IMAGIC_HOME'
+IMAGIC_HOME = 'IMAGIC_HOME'
 
 
-# The following class is required for Scipion to detect this Python module
-# as a Scipion Plugin. It needs to specify the PluginMeta __metaclass__
-# Some function related to the underlying package binaries need to be
-# implemented
-class Plugin:
-    #__metaclass__ = pyworkflow.em.PluginMeta
+class Plugin(pyworkflow.em.Plugin):
+    _homeVar = IMAGIC_HOME
+    _pathVars = [IMAGIC_HOME]
+    _supportedVersions = ['110308', '160418']
 
     @classmethod
     def getEnviron(cls):
         """ Load the environment variables needed for Imagic.
-    IMAGIC_ROOT is set to IMAGIC_HOME MPI-related vars
-    are set if IMAGIC_HOME/openmpi path exists
-    IMAGIC_BATCH is needed for batch files to work.
-    """
+        IMAGIC_ROOT is set to IMAGIC_HOME MPI-related vars
+        are set if IMAGIC_HOME/openmpi path exists
+        IMAGIC_BATCH is needed for batch files to work.
+        """
         env = Environ(os.environ)
-        IMAGIC_HOME = os.environ[('%s' % IMAGIC_HOME_VAR)]
-
-        env.update({'IMAGIC_ROOT': IMAGIC_HOME,
+        env.update({'IMAGIC_ROOT': cls.getHome(),
                     'IMAGIC_BATCH': "1",
-                    'FFTW_IPATH': IMAGIC_HOME + '/fftw/include',
-                    'FFTW_LPATH': IMAGIC_HOME + '/fftw/lib',
+                    'FFTW_IPATH': cls.getHome('fftw', 'include'),
+                    'FFTW_LPATH': cls.getHome('fftw', 'lib'),
                     'FFTW_LIB': 'fftw3f'
                     })
-        env.set('LD_LIBRARY_PATH', IMAGIC_HOME + '/fftw/lib', env.BEGIN)
-        env.set('LD_LIBRARY_PATH', IMAGIC_HOME + '/lib', env.BEGIN)
+        env.set('LD_LIBRARY_PATH', cls.getHome('fftw', 'lib'), env.BEGIN)
+        env.set('LD_LIBRARY_PATH', cls.getHome('lib'), env.BEGIN)
 
-        mpidir = IMAGIC_HOME + '/openmpi'
+        mpidir = cls.getHome('openmpi')
 
         if os.path.exists(mpidir):
             env.update({'MPIHOME': mpidir,
@@ -71,39 +67,22 @@ class Plugin:
             env.set('PATH', mpidir + '/bin', env.BEGIN)
 
         else:
-            print "Warning: IMAGIC_ROOT directory (", IMAGIC_HOME, ") does not contain openmpi folder.\n", \
+            print "Warning: IMAGIC_ROOT directory (", cls.getHome(), ") does not contain openmpi folder.\n", \
                 "No MPI support will be enabled."
 
         return env
 
     @classmethod
     def getVersion(cls):
-        path = os.environ[IMAGIC_HOME_VAR]
         for v in cls.getSupportedVersions():
-            versionFile = join(path, 'version_' + v)
-            if os.path.exists(versionFile):
+            if os.path.exists(cls.getHome('version_' + v)):
                 return v
         return ''
 
     @classmethod
-    def getSupportedVersions(cls):
-        """ Return the list of supported binary versions. """
-        return ['110308', '160418']
-
-    @classmethod
-    def validateInstallation(cls):
-        """ This function will be used to check if package is properly installed. """
-        environ = cls.getEnviron()
-        missingPaths = ["%s: %s" % (var, environ[var])
-                        for var in [IMAGIC_HOME_VAR]
-                        if not os.path.exists(environ[var])]
-
-        return (["Missing variables:"] + missingPaths) if missingPaths else []
-
-    @classmethod
     def getScript(cls, *paths):
         """ Return the script that will be used. """
-        cmd = join(__path__[0], 'scripts', cls.getVersion(), *paths)
+        cmd = os.path.join(__path__[0], 'scripts', cls.getVersion(), *paths)
         return str(cmd)
 
 
