@@ -24,7 +24,6 @@
 # *  e-mail address 'scipion@cnb.csic.es'
 # *
 # **************************************************************************
-from pyworkflow import VERSION_1_1
 from pyworkflow.em import ProtClassify2D, Float
 from pyworkflow.protocol.params import PointerParam, IntParam, BooleanParam
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
@@ -35,13 +34,12 @@ from protocol_base import ImagicProtocol
 
 
 class ImagicProtMSAClassify(ProtClassify2D, ImagicProtocol):
-    """ This classification protocol is a post-processor to the MSA.
+    """This protocols is a wrapper for MSA-CLASSIFY program of IMAGIC.
 
-        It is based on variance-oriented hierarchical ascendant classification program
-        (an enhanced Ward-type algorithm).
+    It is based on variance-oriented hierarchical ascendant
+    classification program (an enhanced Ward-type algorithm).
     """
     _label = 'msa-classify'
-    _lastUpdateVersion = VERSION_1_1
     CLASS_DIR = 'MSA-cls'
 
     def __init__(self, **kwargs):
@@ -104,7 +102,6 @@ class ImagicProtMSAClassify(ProtClassify2D, ImagicProtocol):
 
     def classifyStep(self):
         """ Run MSA-CL and MSA-SUM from IMAGIC. """
-
         inputFile = self.inputMSA.get().getParticlesStack()
         inputFileBase = pwutils.removeExt(inputFile)
         inputFileImg = inputFileBase + '.img'

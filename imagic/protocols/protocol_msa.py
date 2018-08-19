@@ -27,7 +27,6 @@
 
 from os.path import join, exists
 
-from pyworkflow import VERSION_1_1
 from pyworkflow.protocol.params import (IntParam, PointerParam,
                                         EnumParam, FloatParam)
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
@@ -39,7 +38,7 @@ from protocol_base import ImagicProtocol
 
 
 class ImagicProtMSA(ImagicProtocol):
-    """Multivariate Statistical Analysis module of IMAGIC.
+    """This protocols is a wrapper for MSA-RUN program of IMAGIC.
 
     It calculates eigenimages (eigenvectors) and eigenvalues of
     a set of input aligned images using an iterative eigenvector
@@ -47,7 +46,6 @@ class ImagicProtMSA(ImagicProtocol):
 
     """
     _label = 'msa'
-    _lastUpdateVersion = VERSION_1_1
     MSA_DIR = 'MSA'
 
     def __init__(self, **kwargs):
