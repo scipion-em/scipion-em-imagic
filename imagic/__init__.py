@@ -32,13 +32,17 @@ from pyworkflow.utils import Environ
 _logo = "imagic_logo.png"
 _references = ['vanHeel1981', 'vanHeel1996', 'vanHeel2012']
 
-IMAGIC_HOME = 'IMAGIC_HOME'
+from .constants import IMAGIC_HOME
 
 
 class Plugin(pyworkflow.em.Plugin):
     _homeVar = IMAGIC_HOME
     _pathVars = [IMAGIC_HOME]
-    _supportedVersions = ['110308', '160418']
+    _supportedVersions = ['110308', '160418', '180311']
+
+    @classmethod
+    def _defineVariables(cls):
+        cls._defineEmVar(IMAGIC_HOME, 'imagic-180311')
 
     @classmethod
     def getEnviron(cls):
@@ -73,16 +77,9 @@ class Plugin(pyworkflow.em.Plugin):
         return env
 
     @classmethod
-    def getVersion(cls):
-        for v in cls.getSupportedVersions():
-            if os.path.exists(cls.getHome('version_' + v)):
-                return v
-        return ''
-
-    @classmethod
     def getScript(cls, *paths):
         """ Return the script that will be used. """
-        cmd = os.path.join(__path__[0], 'scripts', cls.getVersion(), *paths)
+        cmd = os.path.join(__path__[0], 'scripts', cls.getActiveVersion(), *paths)
         return str(cmd)
 
 

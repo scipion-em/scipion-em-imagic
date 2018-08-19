@@ -29,7 +29,7 @@ Some Imagic protocol base classes.
 """
 
 from pyworkflow.em import EMProtocol
-from imagic.scripts import runTemplate
+from imagic.utils import runTemplate
 
 
 class ImagicProtocol(EMProtocol):

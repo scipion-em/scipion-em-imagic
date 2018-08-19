@@ -30,7 +30,7 @@ from pyworkflow.protocol.params import PointerParam, IntParam, BooleanParam
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
 import pyworkflow.utils as pwutils
 
-from imagic.scripts import ImagicPltFile, ImagicLisFile
+from imagic.utils import ImagicPltFile, ImagicLisFile
 from protocol_base import ImagicProtocol
 
 

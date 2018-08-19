@@ -29,6 +29,8 @@ This module contains constants related to Imagic protocols
 """
 
 # ------------------ Constants values --------------------------------------
+IMAGIC_HOME = 'IMAGIC_HOME'
+
 # imagic documentation url
 IMAGIC_DOCS = 'http://imagescience.de/imagic.html'
 
