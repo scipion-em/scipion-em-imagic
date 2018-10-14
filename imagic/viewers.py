@@ -35,7 +35,7 @@ from protocols.protocol_msa import ImagicProtMSA
 
 
 class ImagicViewerMSA(ProtocolViewer):
-    """ Visualization of MSA Protocol. """
+    """ Visualization of MSA results. """
 
     _environments = [DESKTOP_TKINTER, WEB_DJANGO]
     _targets = [ImagicProtMSA]

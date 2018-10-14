@@ -38,7 +38,7 @@ from protocol_base import ImagicProtocol
 
 
 class ImagicProtMSA(ImagicProtocol):
-    """This protocols is a wrapper for MSA-RUN program of IMAGIC.
+    """This protocols wraps MSA-RUN program of IMAGIC.
 
     It calculates eigenimages (eigenvectors) and eigenvalues of
     a set of input aligned images using an iterative eigenvector

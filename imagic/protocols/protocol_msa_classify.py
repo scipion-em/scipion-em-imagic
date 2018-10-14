@@ -24,6 +24,7 @@
 # *  e-mail address 'scipion@cnb.csic.es'
 # *
 # **************************************************************************
+
 from pyworkflow.em import ProtClassify2D, Float
 from pyworkflow.protocol.params import PointerParam, IntParam, BooleanParam
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
@@ -34,7 +35,7 @@ from protocol_base import ImagicProtocol
 
 
 class ImagicProtMSAClassify(ProtClassify2D, ImagicProtocol):
-    """This protocols is a wrapper for MSA-CLASSIFY program of IMAGIC.
+    """This protocols wraps MSA-CLASSIFY program of IMAGIC.
 
     It is based on variance-oriented hierarchical ascendant
     classification program (an enhanced Ward-type algorithm).

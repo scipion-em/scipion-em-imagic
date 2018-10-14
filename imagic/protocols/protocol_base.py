@@ -24,16 +24,13 @@
 # *  e-mail address 'scipion@cnb.csic.es'
 # *
 # **************************************************************************
-"""
-Some Imagic protocol base classes.
-"""
 
 from pyworkflow.em import EMProtocol
 from imagic.utils import runTemplate
 
 
 class ImagicProtocol(EMProtocol):
-    """ Sub-class of EMProtocol to group some common Imagic utils. """
+    """ Base protocol for IMAGIC utils. """
 
     def _getFileName(self, key):
         """ Give a key, append the img extension
