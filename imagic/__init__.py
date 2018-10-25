@@ -81,6 +81,12 @@ class Plugin(pyworkflow.em.Plugin):
         """ Return the script that will be used. """
         cmd = os.path.join(__path__[0], 'scripts', cls.getActiveVersion(), *paths)
         return str(cmd)
-
+    
+    @classmethod
+    def defineBinaries(cls, env):
+        env.addPackage('imagic', version='180311',
+                       default=True)
+        env.addPackage('imagic', version='160418')
+        env.addPackage('imagic', version='110308')
 
 pyworkflow.em.Domain.registerPlugin(__name__)
