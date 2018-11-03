@@ -6,3 +6,5 @@ IMAGIC is a high end environment for the analysis of images, spectra and other m
 IMAGIC is a licensed software that cannot be distributed by Scipion, however users can link existing installation and use this plugin.
 
 Supported versions of IMAGIC: 110308, 160418, 180311
+
+![build status](http://heisenberg.cnb.csic.es:9980/badges/imagic_devel.svg "Build status")
