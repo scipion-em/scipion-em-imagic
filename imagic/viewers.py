@@ -29,8 +29,7 @@ This module implements the viewer for MSA Imagic program
 """
 from pyworkflow.protocol.params import *
 from pyworkflow.viewer import ProtocolViewer, DESKTOP_TKINTER, WEB_DJANGO
-from pyworkflow.em.viewer import DataView
-from pyworkflow.em.plotter import EmPlotter
+from pyworkflow.em.viewers import DataView, EmPlotter
 from protocols.protocol_msa import ImagicProtMSA
 
 
