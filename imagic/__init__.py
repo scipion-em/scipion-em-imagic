@@ -84,9 +84,7 @@ class Plugin(pyworkflow.em.Plugin):
     
     @classmethod
     def defineBinaries(cls, env):
-        env.addPackage('imagic', version='180311',
-                       default=True)
-        env.addPackage('imagic', version='160418')
-        env.addPackage('imagic', version='110308')
+        # we do not distribute binaries
+        pass
 
 pyworkflow.em.Domain.registerPlugin(__name__)
