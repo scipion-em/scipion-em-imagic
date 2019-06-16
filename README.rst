@@ -52,7 +52,7 @@ Protocols
            :align: left
            :alt: GUI input form of the imagic - msa protocol
 
-        If you want to play with advanced parameters, select _Advanced_ expert level and look at the Help message for any particular option.
+        If you want to play with advanced parameters, select *Advanced* expert level and look at the Help message for any particular option.
 
         .. figure:: https://user-images.githubusercontent.com/6952870/50742309-7c3eb200-1209-11e9-8121-c358e6893a71.png
            :align: left
@@ -74,7 +74,7 @@ Protocols
            :align: left
            :alt: GUI input form of the imagic - msa classify protocol
 
-        As always, if you want to play with advanced parameters, select _Advanced_ expert level and look at the Help message for any particular option.
+        As always, if you want to play with advanced parameters, select *Advanced* expert level and look at the Help message for any particular option.
 
         .. figure:: https://user-images.githubusercontent.com/6952870/50742315-819bfc80-1209-11e9-83fb-21336230eeee.png
            :align: left
