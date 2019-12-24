@@ -30,11 +30,11 @@ from os.path import join, exists
 from pyworkflow.protocol.params import (IntParam, PointerParam,
                                         EnumParam, FloatParam)
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
-from pyworkflow.em.convert import ImageHandler
+from pwem.convert import ImageHandler
 import pyworkflow.utils as pwutils
 
-from imagic.constants import MODULATION
-from protocol_base import ImagicProtocol
+from ..constants import MODULATION
+from .protocol_base import ImagicProtocol
 
 
 class ImagicProtMSA(ImagicProtocol):

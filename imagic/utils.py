@@ -26,7 +26,8 @@
 # **************************************************************************
 
 import re
-from pyworkflow.utils import runJob, Environ, join, replaceBaseExt
+from pyworkflow.utils import runJob, join, replaceBaseExt
+
 import imagic
 
 END_HEADER = 'END BATCH HEADER'
@@ -60,9 +61,8 @@ def writeScript(inputScript, outputScript, paramsDict):
                                           "%(var)s=%(value)s%(suffix)s\n")
                 if newLine:
                     line = newLine
-            except Exception, ex:
-                print ex, "on line (%d): %s" % (i + 1, line)
-                raise ex
+            except Exception as ex:
+                print(ex, "on line (%d): %s" % (i + 1, line))
         fOut.write(line)
     fIn.close()
     fOut.close()
@@ -103,7 +103,7 @@ class ImagicPltFile(object):
 
         for line in f:
             line = line.strip()
-            fields = map(float, line.split())
+            fields = list(map(float, line.split()))
             # rows contains tuples (float) of
             # image_number, class_number
             yield int(fields[0]), fields[1]

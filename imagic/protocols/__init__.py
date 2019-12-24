@@ -25,6 +25,6 @@
 # *
 # **************************************************************************
 
-from protocol_base import ImagicProtocol
-from protocol_msa import ImagicProtMSA
-from protocol_msa_classify import ImagicProtMSAClassify
+from .protocol_base import ImagicProtocol
+from .protocol_msa import ImagicProtMSA
+from .protocol_msa_classify import ImagicProtMSAClassify

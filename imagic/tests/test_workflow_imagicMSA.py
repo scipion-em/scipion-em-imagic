@@ -27,10 +27,11 @@
 
 import os
 
-from pyworkflow.em.protocol import ProtImportParticles
+from pwem.protocols import ProtImportParticles
 from pyworkflow.tests import setupTestProject, DataSet
-from pyworkflow.tests.em.workflows.test_workflow import TestWorkflow
-from imagic.protocols import ImagicProtMSA, ImagicProtMSAClassify
+from pwem.tests.workflows.test_workflow import TestWorkflow
+
+from ..protocols import ImagicProtMSA, ImagicProtMSAClassify
 
   
    

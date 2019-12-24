@@ -24,13 +24,11 @@
 # *  e-mail address 'scipion@cnb.csic.es'
 # *
 # **************************************************************************
-"""
-This module implements some wizards
-"""
 
-from pyworkflow.em.constants import UNIT_PIXEL
-from pyworkflow.em.wizard import ParticleMaskRadiusWizard
-from protocols.protocol_msa import ImagicProtMSA
+from pwem.constants import UNIT_PIXEL
+from pwem.wizards import ParticleMaskRadiusWizard
+
+from .protocols.protocol_msa import ImagicProtMSA
 
 
 # ===============================================================================

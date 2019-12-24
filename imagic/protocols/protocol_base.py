@@ -25,8 +25,9 @@
 # *
 # **************************************************************************
 
-from pyworkflow.em import EMProtocol
-from imagic.utils import runTemplate
+from pwem.protocols import EMProtocol
+
+from ..utils import runTemplate
 
 
 class ImagicProtocol(EMProtocol):
