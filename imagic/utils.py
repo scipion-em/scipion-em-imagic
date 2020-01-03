@@ -7,7 +7,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -25,10 +25,12 @@
 # *
 # **************************************************************************
 
+from io import open
 import re
+
 from pyworkflow.utils import runJob, join, replaceBaseExt
 
-import imagic
+from . import Plugin
 
 END_HEADER = 'END BATCH HEADER'
 # Regular expression for parsing vars in script header
@@ -48,7 +50,7 @@ def writeScript(inputScript, outputScript, paramsDict):
     """ Create a new Imagic script by substituting
     params in the input 'paramsDict'.
     """
-    fIn = open(imagic.Plugin.getScript(inputScript), 'r')
+    fIn = open(Plugin.getScript(inputScript), 'r')
     fOut = open(outputScript, 'w')
     inHeader = True  # After the end of header, no more value replacement
 
@@ -89,7 +91,7 @@ def runTemplate(inputScript, paramsDict, log=None, cwd=None):
 def runScript(inputScript, log=None, cwd=None):
     args = " %s" % inputScript
     shellPath = '/bin/bash'
-    runJob(log, shellPath, args, env=imagic.Plugin.getEnviron(), cwd=cwd)
+    runJob(log, shellPath, args, env=Plugin.getEnviron(), cwd=cwd)
 
 
 class ImagicPltFile(object):

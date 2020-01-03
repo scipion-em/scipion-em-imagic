@@ -7,7 +7,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -24,6 +24,7 @@
 # *  e-mail address 'scipion@cnb.csic.es'
 # *
 # **************************************************************************
+from io import open
 
 from pwem.protocols import EMProtocol
 
@@ -33,7 +34,7 @@ from ..utils import runTemplate
 class ImagicProtocol(EMProtocol):
     """ Base protocol for IMAGIC utils. """
 
-    def _getFileName(self, key):
+    def _getFileName(self, key, **kwargs):
         """ Give a key, append the img extension
         and prefix the protocol working dir.
         """

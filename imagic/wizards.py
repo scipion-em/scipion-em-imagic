@@ -7,7 +7,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -41,7 +41,7 @@ class ImagicProtMaskWizard(ParticleMaskRadiusWizard):
     def _getParameters(self, protocol):
         label, value = self._getInputProtocol(self._targets, protocol)
 
-        protParams = {}
+        protParams = dict()
         protParams['input'] = protocol.inputParticles
         protParams['label'] = label
         protParams['value'] = value
@@ -51,7 +51,7 @@ class ImagicProtMaskWizard(ParticleMaskRadiusWizard):
         _objs = self._getParameters(protocol)['input']
         return ParticleMaskRadiusWizard._getListProvider(self, _objs)
 
-    def show(self, form):
+    def show(self, form, *args):
         params = self._getParameters(form.protocol)
         _value = params['value']
         _label = params['label']

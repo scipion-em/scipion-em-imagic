@@ -7,7 +7,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -49,7 +49,6 @@ class ImagicProtMSAClassify(ProtClassify2D, ImagicProtocol):
 
         self._params = {'cls_dir': self.CLASS_DIR,
                         'msa_cls_img': 'classes'}
-
 
 # --------------------------- DEFINE param functions --------------------------
     def _defineParams(self, form):
