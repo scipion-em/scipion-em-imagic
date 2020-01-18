@@ -199,4 +199,7 @@ setup(
         'Bug Reports': 'https://github.com/scipion-em/scipion-em-imagic/issues',
         'Source': 'https://github.com/scipion-em/scipion-em-imagic/',
     },
+    entry_points={
+        'pyworkflow.plugin': 'imagic = imagic'
+    }
 )

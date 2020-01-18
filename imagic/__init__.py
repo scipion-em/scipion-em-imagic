@@ -88,6 +88,3 @@ class Plugin(pwem.Plugin):
     def defineBinaries(cls, env):
         # we do not distribute binaries
         pass
-
-
-pwem.Domain.registerPlugin(__name__)
