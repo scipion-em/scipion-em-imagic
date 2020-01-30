@@ -30,7 +30,7 @@ from os.path import join, exists
 from pyworkflow.protocol.params import (IntParam, PointerParam,
                                         EnumParam, FloatParam)
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
-from pwem.convert import ImageHandler
+from pwem.emlib.image import ImageHandler
 import pyworkflow.utils as pwutils
 
 from ..constants import MODULATION
