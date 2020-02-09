@@ -7,7 +7,7 @@ This plugin includes two protocols to provide wrappers around Multivariate Stati
 Installation
 ------------
 
-You will need to use `2.0 <https://github.com/I2PC/scipion/releases/tag/V2.0.0>`_ version of Scipion to be able to run these protocols. To install the plugin, you have two options:
+You will need to use `3.0 <https://github.com/I2PC/scipion/releases/tag/V3.0.0>`_ version of Scipion to be able to run these protocols. To install the plugin, you have two options:
 
 a) Stable version
 
@@ -32,7 +32,7 @@ b) Developer's version
 Also, you need a working IMAGIC installation. Default installation path assumed is ``software/em/imagic-180311``, if you want to change it, set *IMAGIC_HOME* in ``scipion.conf`` file to the folder where the IMAGIC is installed (it is the same as *IMAGIC_ROOT* variable in your shell environment). If you want to use MPI-based parallel job execution, make sure you have `openmpi` directory inside IMAGIC installation folder.
 To check the installation, simply run the following Scipion test:
 
-``scipion test tests.em.workflows.test_workflow_imagicMSA.TestImagicWorkflow``
+``scipion tests tests.em.workflows.test_workflow_imagicMSA.TestImagicWorkflow``
 
 Supported versions
 ------------------
