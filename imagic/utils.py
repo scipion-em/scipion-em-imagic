@@ -141,7 +141,6 @@ class ImagicLisFile(object):
                         classId = int(fields[2])
                         value = float(fields[1])
                         paramsList.append([classId, value])
-                continue
 
         return paramsList
 

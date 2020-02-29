@@ -29,7 +29,7 @@
 IMAGIC_HOME = 'IMAGIC_HOME'
 
 # imagic documentation url
-IMAGIC_DOCS = 'http://imagescience.de/imagic.html'
+IMAGIC_DOCS = 'https://imagescience.de/imagic.html'
 
 # MSA distances
 EUCLIDIAN = 0
