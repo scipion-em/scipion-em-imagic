@@ -7,7 +7,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -26,16 +26,16 @@
 # **************************************************************************
 
 import os
-import pyworkflow.em
+import pwem
 from pyworkflow.utils import Environ
+
+from .constants import IMAGIC_HOME
 
 _logo = "imagic_logo.png"
 _references = ['vanHeel1981', 'vanHeel1996', 'vanHeel2012']
 
-from .constants import IMAGIC_HOME
 
-
-class Plugin(pyworkflow.em.Plugin):
+class Plugin(pwem.Plugin):
     _homeVar = IMAGIC_HOME
     _pathVars = [IMAGIC_HOME]
     _supportedVersions = ['110308', '160418', '180311']
@@ -71,8 +71,10 @@ class Plugin(pyworkflow.em.Plugin):
             env.set('PATH', mpidir + '/bin', env.BEGIN)
 
         else:
-            print "Warning: IMAGIC_ROOT directory (", cls.getHome(), ") does not contain openmpi folder.\n", \
-                "No MPI support will be enabled."
+            print("Warning: IMAGIC_ROOT directory (",
+                  cls.getHome(),
+                  ") does not contain openmpi folder.\n",
+                  "No MPI support will be enabled.")
 
         return env
 
@@ -86,5 +88,3 @@ class Plugin(pyworkflow.em.Plugin):
     def defineBinaries(cls, env):
         # we do not distribute binaries
         pass
-
-pyworkflow.em.Domain.registerPlugin(__name__)

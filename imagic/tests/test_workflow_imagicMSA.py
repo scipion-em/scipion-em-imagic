@@ -7,7 +7,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -27,41 +27,33 @@
 
 import os
 
-from pyworkflow.em.protocol import ProtImportParticles
+from pwem.protocols import ProtImportParticles
 from pyworkflow.tests import setupTestProject, DataSet
-from pyworkflow.tests.em.workflows.test_workflow import TestWorkflow
-from imagic.protocols import ImagicProtMSA, ImagicProtMSAClassify
+from pyworkflow.utils import magentaStr
+from pwem.tests.workflows.test_workflow import TestWorkflow
 
-  
+from ..protocols import ImagicProtMSA, ImagicProtMSAClassify
+
    
 class TestImagicWorkflow(TestWorkflow):
     @classmethod
     def setUpClass(cls):    
-        # Create a new project
         setupTestProject(cls)
         cls.dataset = DataSet.getDataSet('mda')
         cls.particlesFn = cls.dataset.getFile('particles/xmipp_particles.xmd')
-        
-    def validateFilesExist(self, files):
-        exist = []
-        for f in files:
-            if os.path.exists(f):
-                exist.append(f)
-        self.assertEqual(files, exist, "Missing output files")
     
     def test_msaWorkflow(self):
         """ Run an Import particles protocol. """
+        print(magentaStr("\n==> Importing data - particles:"))
         protImport = self.newProtocol(ProtImportParticles,
                                       importFrom=2,
                                       mdFile=self.particlesFn,
                                       samplingRate=3.5)
         self.launchProtocol(protImport)
-        # check that input images have been imported
-        # (a better way to do this?)
-        if protImport.outputParticles is None:
-            raise Exception('Import of images: %s, failed. '
-                            'outputParticles is None.' % self.particlesFn)
+        self.assertIsNotNone(protImport.outputParticles,
+                             "SetOfParticles has not been produced.")
 
+        print(magentaStr("\n==> Testing imagic - msa:"))
         protMsa = self.newProtocol(ImagicProtMSA,
                                    objLabel='imagic - msa',
                                    numberOfFactors=10,
@@ -70,6 +62,7 @@ class TestImagicWorkflow(TestWorkflow):
         protMsa.inputParticles.set(protImport.outputParticles)
         self.launchProtocol(protMsa)
 
+        print(magentaStr("\n==> Testing imagic - msa classify:"))
         protMsaClassify = self.newProtocol(ImagicProtMSAClassify,
                                            objLabel='imagic - msa classify',
                                            numberOfFactors=5,

@@ -7,7 +7,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -30,11 +30,11 @@ from os.path import join, exists
 from pyworkflow.protocol.params import (IntParam, PointerParam,
                                         EnumParam, FloatParam)
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
-from pyworkflow.em.convert import ImageHandler
+from pwem.emlib.image import ImageHandler
 import pyworkflow.utils as pwutils
 
-from imagic.constants import MODULATION
-from protocol_base import ImagicProtocol
+from ..constants import MODULATION
+from .protocol_base import ImagicProtocol
 
 
 class ImagicProtMSA(ImagicProtocol):
@@ -236,7 +236,7 @@ class ImagicProtMSA(ImagicProtocol):
         return ['Borland1990']
 
     def _summary(self):
-        summary = []
+        summary = list()
         summary.append('This protocol generates only eigenimages '
                        '(factors), that will be used later for'
                        ' MSA-based classification.')

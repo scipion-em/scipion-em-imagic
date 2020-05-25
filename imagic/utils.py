@@ -7,7 +7,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -25,9 +25,12 @@
 # *
 # **************************************************************************
 
+from io import open
 import re
-from pyworkflow.utils import runJob, Environ, join, replaceBaseExt
-import imagic
+
+from pyworkflow.utils import runJob, join, replaceBaseExt
+
+from . import Plugin
 
 END_HEADER = 'END BATCH HEADER'
 # Regular expression for parsing vars in script header
@@ -47,7 +50,7 @@ def writeScript(inputScript, outputScript, paramsDict):
     """ Create a new Imagic script by substituting
     params in the input 'paramsDict'.
     """
-    fIn = open(imagic.Plugin.getScript(inputScript), 'r')
+    fIn = open(Plugin.getScript(inputScript), 'r')
     fOut = open(outputScript, 'w')
     inHeader = True  # After the end of header, no more value replacement
 
@@ -60,9 +63,8 @@ def writeScript(inputScript, outputScript, paramsDict):
                                           "%(var)s=%(value)s%(suffix)s\n")
                 if newLine:
                     line = newLine
-            except Exception, ex:
-                print ex, "on line (%d): %s" % (i + 1, line)
-                raise ex
+            except Exception as ex:
+                print(ex, "on line (%d): %s" % (i + 1, line))
         fOut.write(line)
     fIn.close()
     fOut.close()
@@ -89,7 +91,7 @@ def runTemplate(inputScript, paramsDict, log=None, cwd=None):
 def runScript(inputScript, log=None, cwd=None):
     args = " %s" % inputScript
     shellPath = '/bin/bash'
-    runJob(log, shellPath, args, env=imagic.Plugin.getEnviron(), cwd=cwd)
+    runJob(log, shellPath, args, env=Plugin.getEnviron(), cwd=cwd)
 
 
 class ImagicPltFile(object):
@@ -103,7 +105,7 @@ class ImagicPltFile(object):
 
         for line in f:
             line = line.strip()
-            fields = map(float, line.split())
+            fields = list(map(float, line.split()))
             # rows contains tuples (float) of
             # image_number, class_number
             yield int(fields[0]), fields[1]
@@ -139,7 +141,6 @@ class ImagicLisFile(object):
                         classId = int(fields[2])
                         value = float(fields[1])
                         paramsList.append([classId, value])
-                continue
 
         return paramsList
 
