@@ -7,7 +7,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -25,13 +25,14 @@
 # *
 # **************************************************************************
 
-from pyworkflow.em import ProtClassify2D, Float
+from pwem.protocols import ProtClassify2D
+from pyworkflow.object import Float
 from pyworkflow.protocol.params import PointerParam, IntParam, BooleanParam
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
 import pyworkflow.utils as pwutils
 
-from imagic.utils import ImagicPltFile, ImagicLisFile
-from protocol_base import ImagicProtocol
+from ..utils import ImagicPltFile, ImagicLisFile
+from .protocol_base import ImagicProtocol
 
 
 class ImagicProtMSAClassify(ProtClassify2D, ImagicProtocol):
@@ -49,9 +50,7 @@ class ImagicProtMSAClassify(ProtClassify2D, ImagicProtocol):
         self._params = {'cls_dir': self.CLASS_DIR,
                         'msa_cls_img': 'classes'}
 
-
 # --------------------------- DEFINE param functions --------------------------
-
     def _defineParams(self, form):
         form.addSection(label='Input')
         form.addParam('inputMSA', PointerParam,
@@ -160,7 +159,7 @@ class ImagicProtMSAClassify(ProtClassify2D, ImagicProtocol):
         return ['vanHeel1984', 'vanHeel1989', 'Borland1990']
 
     def _summary(self):
-        summary = []
+        summary = list()
         summary.append('Number of classes: *%s*' % self.numberOfClasses.get())
         summary.append('Number of eigenimages: *%s*' % self.numberOfFactors.get())
         return summary
