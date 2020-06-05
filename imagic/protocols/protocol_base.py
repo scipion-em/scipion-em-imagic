@@ -24,7 +24,6 @@
 # *  e-mail address 'scipion@cnb.csic.es'
 # *
 # **************************************************************************
-from io import open
 
 from pwem.protocols import EMProtocol
 
@@ -54,8 +53,7 @@ class ImagicProtocol(EMProtocol):
 
         self._leaveWorkingDir()
 
-        f = open(self.getLogPaths()[0], 'r')
-        for line in f.readlines():
-            if '**ERROR' in line:
-                raise Exception('IMAGIC script error!')
-        f.close()
+        with open(self.getLogPaths()[0], 'r') as f:
+            for line in f:
+                if '**ERROR' in line:
+                    raise Exception('IMAGIC script error!')

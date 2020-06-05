@@ -25,7 +25,6 @@
 # *
 # **************************************************************************
 
-from io import open
 import re
 
 from pyworkflow.utils import runJob, join, replaceBaseExt
@@ -101,16 +100,13 @@ class ImagicPltFile(object):
         self._filename = filename
 
     def iterRows(self):
-        f = open(self._filename)
-
-        for line in f:
-            line = line.strip()
-            fields = list(map(float, line.split()))
-            # rows contains tuples (float) of
-            # image_number, class_number
-            yield int(fields[0]), fields[1]
-
-        f.close()
+        with open(self._filename) as f:
+            for line in f:
+                line = line.strip()
+                fields = [float(x) for x in line.split()]
+                # rows contains tuples (float) of
+                # image_number, class_number
+                yield int(fields[0]), fields[1]
 
 
 class ImagicLisFile(object):
@@ -145,15 +141,14 @@ class ImagicLisFile(object):
         return paramsList
 
     def getParams(self):
-        f = open(self._filename)
-        cls = self._clsNum
-        paramsList = self.parseFile(f)
-        for param in paramsList[0:cls]:
-            self.varianceDict[param[0]] = param[1]
-        for param in paramsList[cls:(2*cls)]:
-            self.quality1Dict[param[0]] = param[1]
-        for param in paramsList[(2*cls):]:
-            self.quality2Dict[param[0]] = param[1]
-        f.close()
+        with open(self._filename) as f:
+            cls = self._clsNum
+            paramsList = self.parseFile(f)
+            for param in paramsList[0:cls]:
+                self.varianceDict[param[0]] = param[1]
+            for param in paramsList[cls:(2*cls)]:
+                self.quality1Dict[param[0]] = param[1]
+            for param in paramsList[(2*cls):]:
+                self.quality2Dict[param[0]] = param[1]
 
         return self.varianceDict, self.quality1Dict, self.quality2Dict
