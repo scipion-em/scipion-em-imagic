@@ -38,11 +38,11 @@ _references = ['vanHeel1981', 'vanHeel1996', 'vanHeel2012']
 class Plugin(pwem.Plugin):
     _homeVar = IMAGIC_HOME
     _pathVars = [IMAGIC_HOME]
-    _supportedVersions = ['110308', '160418', '180311']
+    _supportedVersions = ['180921']
 
     @classmethod
     def _defineVariables(cls):
-        cls._defineEmVar(IMAGIC_HOME, 'imagic-180311')
+        cls._defineEmVar(IMAGIC_HOME, 'imagic-180921')
 
     @classmethod
     def getEnviron(cls):
