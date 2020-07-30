@@ -29,7 +29,7 @@ b) Developer's version
 
         scipion installp -p path_to_scipion-em-imagic --devel
 
-Also, you need a working IMAGIC installation. Default installation path assumed is ``software/em/imagic-180921``, if you want to change it, set *IMAGIC_HOME* in ``scipion.conf`` file to the folder where the IMAGIC is installed (it is the same as *IMAGIC_ROOT* variable in your shell environment). If you want to use MPI-based parallel job execution, make sure you have `openmpi` directory inside IMAGIC installation folder.
+Also, you need a working IMAGIC installation. Default installation path assumed is ``software/em/imagic-190830``, if you want to change it, set *IMAGIC_HOME* in ``scipion.conf`` file to the folder where the IMAGIC is installed (it is the same as *IMAGIC_ROOT* variable in your shell environment). If you want to use MPI-based parallel job execution, make sure you have `openmpi` directory inside IMAGIC installation folder.
 To check the installation, simply run the following Scipion test:
 
 ``scipion tests tests.em.workflows.test_workflow_imagicMSA.TestImagicWorkflow``
@@ -37,7 +37,9 @@ To check the installation, simply run the following Scipion test:
 Supported versions
 ------------------
 
-Since with every version of IMAGIC software user interaction with IMAGIC programs is changed, we came up with a way to provide multiple version support. In `imagic/scripts` directory you have a folder for each corresponding version, that contains batch scripts similar to those used by IMAGIC. This way one can create a similar script specific to a certain version. At the moment version 180921 (Sep 2018) is supported. If you experience any problems or need help with adapting scripts for your IMAGIC version, do not hesitate to `create an issue on Github <https://github.com/scipion-em/scipion-em-imagic/issues/new>`_. Besides editing scripts directory you would need to add version number to `_supportedVersions` list in file ``imagic/__init__.py`` and edit IMAGIC_HOME variable in ``scipion.conf``.
+* 190830
+
+Since with every version of IMAGIC software user interaction with IMAGIC programs is changed, we came up with a way to provide multiple version support. In `imagic/scripts` directory you have a folder for each corresponding version, that contains batch scripts similar to those used by IMAGIC. This way one can create a similar script specific to a certain version. At the moment version 190830 (Aug 2019) is supported. If you experience any problems or need help with adapting scripts for your IMAGIC version, do not hesitate to `create an issue on Github <https://github.com/scipion-em/scipion-em-imagic/issues/new>`_. Besides editing scripts directory you would need to add version number to `_supportedVersions` list in file ``imagic/__init__.py`` and edit IMAGIC_HOME variable in ``scipion.conf``.
 
 Protocols
 ---------
