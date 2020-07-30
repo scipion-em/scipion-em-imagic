@@ -38,11 +38,11 @@ _references = ['vanHeel1981', 'vanHeel1996', 'vanHeel2012']
 class Plugin(pwem.Plugin):
     _homeVar = IMAGIC_HOME
     _pathVars = [IMAGIC_HOME]
-    _supportedVersions = ['180921']
+    _supportedVersions = ['190830']
 
     @classmethod
     def _defineVariables(cls):
-        cls._defineEmVar(IMAGIC_HOME, 'imagic-180921')
+        cls._defineEmVar(IMAGIC_HOME, 'imagic-190830')
 
     @classmethod
     def getEnviron(cls):
@@ -54,11 +54,7 @@ class Plugin(pwem.Plugin):
         env = Environ(os.environ)
         env.update({'IMAGIC_ROOT': cls.getHome(),
                     'IMAGIC_BATCH': "1",
-                    'FFTW_IPATH': cls.getHome('fftw', 'include'),
-                    'FFTW_LPATH': cls.getHome('fftw', 'lib'),
-                    'FFTW_LIB': 'fftw3f'
                     })
-        env.set('LD_LIBRARY_PATH', cls.getHome('fftw', 'lib'), env.BEGIN)
         env.set('LD_LIBRARY_PATH', cls.getHome('lib'), env.BEGIN)
 
         mpidir = cls.getHome('openmpi')
