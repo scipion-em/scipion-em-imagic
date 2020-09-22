@@ -33,6 +33,7 @@ from .constants import IMAGIC_HOME
 
 _logo = "imagic_logo.png"
 _references = ['vanHeel1981', 'vanHeel1996', 'vanHeel2012']
+_url = "https://github.com/scipion-em/scipion-em-imagic"
 
 
 class Plugin(pwem.Plugin):
