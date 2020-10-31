@@ -7,3 +7,8 @@ include LICENSE
 # Include scripts
 recursive-include imagic/scripts *
 
+# Include the changelog
+include CHANGES.txt
+
+# Include conf file
+include imagic/protocols.conf

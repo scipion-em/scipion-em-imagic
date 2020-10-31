@@ -32,6 +32,7 @@ from ..utils import runTemplate
 
 class ImagicProtocol(EMProtocol):
     """ Base protocol for IMAGIC utils. """
+    _label = None
 
     def _getFileName(self, key, **kwargs):
         """ Give a key, append the img extension
