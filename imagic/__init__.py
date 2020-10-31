@@ -31,15 +31,16 @@ from pyworkflow.utils import Environ
 
 from .constants import IMAGIC_HOME
 
+__version__ = '3.0.9'
 _logo = "imagic_logo.png"
 _references = ['vanHeel1981', 'vanHeel1996', 'vanHeel2012']
-_url = "https://github.com/scipion-em/scipion-em-imagic"
 
 
 class Plugin(pwem.Plugin):
     _homeVar = IMAGIC_HOME
     _pathVars = [IMAGIC_HOME]
     _supportedVersions = ['190830']
+    _url = "https://github.com/scipion-em/scipion-em-imagic"
 
     @classmethod
     def _defineVariables(cls):
