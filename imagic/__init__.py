@@ -31,7 +31,7 @@ from pyworkflow.utils import Environ
 
 from .constants import IMAGIC_HOME
 
-__version__ = '3.0.9'
+__version__ = '3.0.10'
 _logo = "imagic_logo.png"
 _references = ['vanHeel1981', 'vanHeel1996', 'vanHeel2012']
 
