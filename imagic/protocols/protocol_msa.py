@@ -25,7 +25,7 @@
 # *
 # **************************************************************************
 
-from os.path import join, exists
+import os
 
 from pyworkflow.protocol.params import (IntParam, PointerParam,
                                         EnumParam, FloatParam)
@@ -51,9 +51,9 @@ class ImagicProtMSA(ImagicProtocol):
     def __init__(self, **kwargs):
         ImagicProtocol.__init__(self, **kwargs)
 
-        self._params = {'eigen_img': join(self.MSA_DIR, 'eigen_img'),
-                        'msa_pixvec_coord': join(self.MSA_DIR, 'msa_pixvec_coord'),
-                        'msa_eigen_pixel': join(self.MSA_DIR, 'msa_eigen_pixel')
+        self._params = {'eigen_img': os.path.join(self.MSA_DIR, 'eigen_img'),
+                        'msa_pixvec_coord': os.path.join(self.MSA_DIR, 'msa_pixvec_coord'),
+                        'msa_eigen_pixel': os.path.join(self.MSA_DIR, 'msa_eigen_pixel')
                         }
 
 # --------------------------- DEFINE param functions --------------------------
@@ -190,8 +190,7 @@ class ImagicProtMSA(ImagicProtocol):
                              })
 
         msaDir = self._getPath(self.MSA_DIR)
-        if exists(msaDir):
-            pwutils.cleanPath(msaDir)
+        pwutils.cleanPath(msaDir)
         pwutils.makePath(msaDir)
 
         self.runTemplate('msa/msa-run.b', self._params)

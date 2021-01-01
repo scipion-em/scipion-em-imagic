@@ -25,15 +25,11 @@
 # *
 # **************************************************************************
 
-from pwem.constants import UNIT_PIXEL
 from pwem.wizards import ParticleMaskRadiusWizard
 
 from .protocols.protocol_msa import ImagicProtMSA
 
 
-# ===============================================================================
-# MASKS
-# ===============================================================================
 
 class ImagicProtMaskWizard(ParticleMaskRadiusWizard):
     _targets = [(ImagicProtMSA, ['radius'])]
@@ -55,4 +51,4 @@ class ImagicProtMaskWizard(ParticleMaskRadiusWizard):
         params = self._getParameters(form.protocol)
         _value = params['value']
         _label = params['label']
-        ParticleMaskRadiusWizard.show(self, form, _value, _label, UNIT_PIXEL)
+        ParticleMaskRadiusWizard.show(self, form, _value, _label)
