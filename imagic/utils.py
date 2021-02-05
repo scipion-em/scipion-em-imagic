@@ -25,9 +25,10 @@
 # *
 # **************************************************************************
 
+import os
 import re
 
-from pyworkflow.utils import runJob, join, replaceBaseExt
+from pyworkflow.utils import runJob, replaceBaseExt
 
 from . import Plugin
 
@@ -79,7 +80,7 @@ def runTemplate(inputScript, paramsDict, log=None, cwd=None):
     outputScript = replaceBaseExt(inputScript, 'b')
 
     if cwd is not None:
-        outputScript = join(cwd, outputScript)
+        outputScript = os.path.join(cwd, outputScript)
 
     # First write the script from the template with the substitutions
     writeScript(inputScript, outputScript, paramsDict)
