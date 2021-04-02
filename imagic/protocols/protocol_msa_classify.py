@@ -30,6 +30,7 @@ from pyworkflow.object import Float
 from pyworkflow.protocol.params import PointerParam, IntParam, BooleanParam
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
 import pyworkflow.utils as pwutils
+from pyworkflow.constants import PROD
 
 from ..utils import ImagicPltFile, ImagicLisFile
 from .protocol_base import ImagicProtocol
@@ -43,6 +44,7 @@ class ImagicProtMSAClassify(ProtClassify2D, ImagicProtocol):
     """
     _label = 'msa-classify'
     CLASS_DIR = 'MSA-cls'
+    _devStatus = PROD
 
     def __init__(self, **kwargs):
         ImagicProtocol.__init__(self, **kwargs)

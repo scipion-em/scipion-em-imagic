@@ -29,6 +29,7 @@ import os
 
 from pyworkflow.protocol.params import (IntParam, PointerParam,
                                         EnumParam, FloatParam)
+from pyworkflow.constants import PROD
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
 from pwem.emlib.image import ImageHandler
 import pyworkflow.utils as pwutils
@@ -47,6 +48,7 @@ class ImagicProtMSA(ImagicProtocol):
     """
     _label = 'msa'
     MSA_DIR = 'MSA'
+    _devStatus = PROD
 
     def __init__(self, **kwargs):
         ImagicProtocol.__init__(self, **kwargs)
