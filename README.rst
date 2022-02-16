@@ -48,7 +48,7 @@ b) Developer's version
 
     .. code-block::
 
-        scipion installp -p path_to_scipion-em-imagic --devel
+        scipion installp -p /path/to/scipion-em-imagic --devel
 
 Also, you need a working IMAGIC installation. Default installation path assumed is ``software/em/imagic-190830``, if you want to change it, set *IMAGIC_HOME* in ``scipion.conf`` file to the folder where the IMAGIC is installed (it is the same as *IMAGIC_ROOT* variable in your shell environment). If you want to use MPI-based parallel job execution, make sure you have `openmpi` directory inside IMAGIC installation folder.
 To check the installation, simply run the following Scipion test:
