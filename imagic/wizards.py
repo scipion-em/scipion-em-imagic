@@ -30,7 +30,6 @@ from pwem.wizards import ParticleMaskRadiusWizard
 from .protocols.protocol_msa import ImagicProtMSA
 
 
-
 class ImagicProtMaskWizard(ParticleMaskRadiusWizard):
     _targets = [(ImagicProtMSA, ['radius'])]
 
