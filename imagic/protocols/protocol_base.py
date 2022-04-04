@@ -57,4 +57,4 @@ class ImagicProtocol(EMProtocol):
         with open(self.getLogPaths()[0], 'r') as f:
             for line in f:
                 if '**ERROR' in line:
-                    raise Exception('IMAGIC script error!')
+                    raise RuntimeError('IMAGIC script error!')

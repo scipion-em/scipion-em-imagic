@@ -1,3 +1,4 @@
+3.0.11 - minor changes
 3.0.9 - update to the latest version 190830
 3.0.8 - support IMAGIC version 180921 by default
 3.0.7 - changed version to reflect Scipion 3 support

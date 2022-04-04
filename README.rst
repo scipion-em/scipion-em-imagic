@@ -4,10 +4,31 @@ IMAGIC plugin
 
 This plugin includes two protocols to provide wrappers around Multivariate Statistical Analysis (MSA) module of `IMAGIC <https://www.imagescience.de/imagic.html>`_ software suite. IMAGIC is a licensed software, not distributed with Scipion and has to be installed by user.
 
+.. image:: https://img.shields.io/pypi/v/scipion-em-imagic.svg
+        :target: https://pypi.python.org/pypi/scipion-em-imagic
+        :alt: PyPI release
+
+.. image:: https://img.shields.io/pypi/l/scipion-em-imagic.svg
+        :target: https://pypi.python.org/pypi/scipion-em-imagic
+        :alt: License
+
+.. image:: https://img.shields.io/pypi/pyversions/scipion-em-imagic.svg
+        :target: https://pypi.python.org/pypi/scipion-em-imagic
+        :alt: Supported Python versions
+
+.. image:: https://img.shields.io/sonar/quality_gate/scipion-em_scipion-em-imagic?server=https%3A%2F%2Fsonarcloud.io
+        :target: https://sonarcloud.io/dashboard?id=scipion-em_scipion-em-imagic
+        :alt: SonarCloud quality gate
+
+.. image:: https://img.shields.io/pypi/dm/scipion-em-imagic
+        :target: https://pypi.python.org/pypi/scipion-em-imagic
+        :alt: Downloads
+
+
 Installation
 ------------
 
-You will need to use `3.0 <https://github.com/I2PC/scipion/releases/tag/V3.0.0>`_ version of Scipion to be able to run these protocols. To install the plugin, you have two options:
+You will need to use 3.0+ version of Scipion to be able to run these protocols. To install the plugin, you have two options:
 
 a) Stable version
 
@@ -27,7 +48,7 @@ b) Developer's version
 
     .. code-block::
 
-        scipion installp -p path_to_scipion-em-imagic --devel
+        scipion installp -p /path/to/scipion-em-imagic --devel
 
 Also, you need a working IMAGIC installation. Default installation path assumed is ``software/em/imagic-190830``, if you want to change it, set *IMAGIC_HOME* in ``scipion.conf`` file to the folder where the IMAGIC is installed (it is the same as *IMAGIC_ROOT* variable in your shell environment). If you want to use MPI-based parallel job execution, make sure you have `openmpi` directory inside IMAGIC installation folder.
 To check the installation, simply run the following Scipion test:
