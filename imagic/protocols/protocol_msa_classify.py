@@ -25,7 +25,10 @@
 # *
 # **************************************************************************
 
+from enum import Enum
+
 from pwem.protocols import ProtClassify2D
+from pwem.objects import SetOfClasses2D
 from pyworkflow.object import Float
 from pyworkflow.protocol.params import PointerParam, IntParam, BooleanParam
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
@@ -34,6 +37,10 @@ from pyworkflow.constants import PROD
 
 from ..utils import ImagicPltFile, ImagicLisFile
 from .protocol_base import ImagicProtocol
+
+
+class outputs(Enum):
+    outputClasses = SetOfClasses2D
 
 
 class ImagicProtMSAClassify(ProtClassify2D, ImagicProtocol):
@@ -45,6 +52,7 @@ class ImagicProtMSAClassify(ProtClassify2D, ImagicProtocol):
     _label = 'msa-classify'
     CLASS_DIR = 'MSA-cls'
     _devStatus = PROD
+    _possibleOutputs = outputs
 
     def __init__(self, **kwargs):
         ImagicProtocol.__init__(self, **kwargs)
@@ -148,7 +156,7 @@ class ImagicProtMSAClassify(ProtClassify2D, ImagicProtocol):
                                 updateClassCallback=self._updateClass,
                                 itemDataIterator=plt.iterRows())
 
-        self._defineOutputs(outputClasses=classes2D)
+        self._defineOutputs(**{outputs.outputClasses.name: classes2D})
         self._defineSourceRelation(particles, classes2D)
 
     # --------------------------- INFO functions ------------------------------
