@@ -26,6 +26,9 @@
 # **************************************************************************
 
 import os
+import logging
+logger = logging.getLogger(__name__)
+
 import pwem
 from pyworkflow.utils import Environ
 
@@ -69,10 +72,9 @@ class Plugin(pwem.Plugin):
             env.set('PATH', mpidir + '/bin', env.BEGIN)
 
         else:
-            print("Warning: IMAGIC_ROOT directory (",
-                  cls.getHome(),
-                  ") does not contain openmpi folder.\n",
-                  "No MPI support will be enabled.")
+            logger.warning(f"Warning: IMAGIC_ROOT directory ({cls.getHome()}) "
+                           f"does not contain openmpi folder.\n"
+                           f"No MPI support will be enabled.")
 
         return env
 
