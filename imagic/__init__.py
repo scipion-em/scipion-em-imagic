@@ -43,7 +43,7 @@ class Plugin(pwem.Plugin):
     _homeVar = IMAGIC_HOME
     _pathVars = [IMAGIC_HOME]
     _supportedVersions = ['190830']
-    _url = "https://github.com/scipion-em/scipion-em-imagic"
+    _url = "https://imagescience.de/imagic.html"
 
     @classmethod
     def _defineVariables(cls):
