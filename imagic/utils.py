@@ -27,6 +27,8 @@
 
 import os
 import re
+import logging
+logger = logging.getLogger(__name__)
 
 from pyworkflow.utils import runJob, replaceBaseExt
 
@@ -64,7 +66,7 @@ def writeScript(inputScript, outputScript, paramsDict):
                 if newLine:
                     line = newLine
             except Exception as ex:
-                print(ex, "on line (%d): %s" % (i + 1, line))
+                logger.error(f"{ex} on line ({i+1}): {line}")
         fOut.write(line)
     fIn.close()
     fOut.close()
