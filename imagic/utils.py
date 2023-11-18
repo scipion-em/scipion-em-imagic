@@ -37,7 +37,7 @@ from . import Plugin
 END_HEADER = 'END BATCH HEADER'
 # Regular expression for parsing vars in script header
 # Match strings of the type "# key=value # some comment"
-REGEX_KEYVALUE = re.compile('(?P<var>\[?[a-zA-Z0-9_-]+\]?)=(?P<value>"\S+")(?P<suffix>\s+.*)')
+REGEX_KEYVALUE = re.compile(r'(?P<var>\[?[a-zA-Z0-9_-]+\]?)=(?P<value>"\S+")(?P<suffix>\s+.*)')
 
 
 def __substituteVar(match, paramsDict, lineTemplate):

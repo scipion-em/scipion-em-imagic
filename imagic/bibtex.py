@@ -35,7 +35,7 @@
   volume = "7",
   issue = "4",
   pages = "601--610",
-  doi = "http://dx.doi.org/10.1364/JOSAA.7.000601"
+  doi = "https://dx.doi.org/10.1364/JOSAA.7.000601"
 }
 
 @article{vanHeel1981,
@@ -46,7 +46,7 @@
   volume = "7",
   issue = "2",
   pages = "113--129",
-  doi = "http://dx.doi.org/10.1016/0304-3991(81)90001-2"
+  doi = "https://dx.doi.org/10.1016/0304-3991(81)90001-2"
 }
 
 @article{vanHeel1984,
@@ -57,7 +57,7 @@
   volume = "13",
   issue = "1-2",
   pages = "165--183",
-  doi = "http://dx.doi.org/10.1016/0304-3991(84)90066-4"
+  doi = "https://dx.doi.org/10.1016/0304-3991(84)90066-4"
 }
 
 @article{vanHeel1989,
@@ -78,7 +78,7 @@
   volume = "116",
   issue = "1",
   pages = "17-24",
-  doi = "http://dx.doi.org/10.1006/jsbi.1996.0004"
+  doi = "https://dx.doi.org/10.1006/jsbi.1996.0004"
 }
 
 @article{vanHeel2012,
@@ -89,7 +89,7 @@
   volume = "F",
   chapter = "19.9",
   pages = "624-628",
-  doi = "http://dx.doi.org/10.1107/97809553602060000875"
+  doi = "https://dx.doi.org/10.1107/97809553602060000875"
 }
 
 """
