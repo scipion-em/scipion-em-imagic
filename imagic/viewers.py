@@ -25,7 +25,7 @@
 # *
 # **************************************************************************
 
-from pyworkflow.protocol.params import *
+from pyworkflow.protocol.params import LabelParam, LEVEL_ADVANCED
 from pyworkflow.viewer import ProtocolViewer, DESKTOP_TKINTER, WEB_DJANGO
 from pwem.viewers import DataView, EmPlotter
 
