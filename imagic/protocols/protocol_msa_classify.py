@@ -105,8 +105,8 @@ class ImagicProtMSAClassify(ProtClassify2D, ImagicProtocol):
     # --------------------------- INSERT steps functions ----------------------
 
     def _insertAllSteps(self):
-        self._insertFunctionStep('classifyStep')
-        self._insertFunctionStep('createOutputStep')
+        self._insertFunctionStep('classifyStep', needsGPU=False)
+        self._insertFunctionStep('createOutputStep', needsGPU=False)
 
     # --------------------------- STEPS functions -----------------------------
 

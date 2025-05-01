@@ -135,15 +135,16 @@ class ImagicProtMSA(ImagicProtocol):
     # --------------------------- INSERT steps functions ----------------------
 
     def _insertAllSteps(self):
-        self._insertFunctionStep('convertInputStep')
+        self._insertFunctionStep('convertInputStep', needsGPU=False)
 
         if self.maskType > 0:
             self._insertFunctionStep('convertMaskStep',
-                                     self.maskImage.get().getObjId())
+                                     self.maskImage.get().getObjId(),
+                                     needsGPU=False)
         else:
-            self._insertFunctionStep('createMaskStep')
+            self._insertFunctionStep('createMaskStep', needsGPU=False)
 
-        self._insertFunctionStep('msaStep')
+        self._insertFunctionStep('msaStep', needsGPU=False)
 
     # --------------------------- STEPS functions -----------------------------
 
