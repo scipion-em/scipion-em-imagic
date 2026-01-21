@@ -27,6 +27,9 @@
 
 import os
 import logging
+
+from pyworkflow import SPA
+
 logger = logging.getLogger(__name__)
 
 import pwem
@@ -44,6 +47,7 @@ class Plugin(pwem.Plugin):
     _pathVars = [IMAGIC_HOME]
     _supportedVersions = ['190830']
     _url = "https://github.com/scipion-em/scipion-em-imagic"
+    _processingField = [SPA]
 
     @classmethod
     def _defineVariables(cls):
