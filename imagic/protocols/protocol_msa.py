@@ -39,12 +39,170 @@ from .protocol_base import ImagicProtocol
 
 
 class ImagicProtMSA(ImagicProtocol):
-    """This protocols wraps MSA-RUN program of IMAGIC.
+    """
+    Performs multivariate statistical analysis of aligned cryo-EM particle
+    images in order to identify the principal sources of structural
+    variability within a dataset.
 
-    It calculates eigenimages (eigenvectors) and eigenvalues of
-    a set of input aligned images using an iterative eigenvector
-    algorithm optimized for (extremely) large data sets.
+    AI Generated:
 
+    Multivariate Statistical Analysis (ImagicProtMSA) — User Manual
+        Overview
+
+        The Multivariate Statistical Analysis protocol applies IMAGIC-based
+        statistical dimensionality reduction methods to a set of aligned
+        particle images. Its primary purpose is to extract the dominant
+        patterns of variability present in the dataset and represent them
+        through a reduced number of eigenimages and associated factors.
+
+        In cryo-EM workflows, this protocol is commonly used as a preparatory
+        stage before particle classification. By transforming high-dimensional
+        particle images into a smaller statistical representation, it becomes
+        possible to identify meaningful structural differences while reducing
+        the influence of noise and redundant information. More info:
+        https://imagic4d.readthedocs.io/en/latest/
+
+        Biological Context and Purpose
+
+        Biological macromolecules often display conformational flexibility,
+        compositional heterogeneity, preferred orientations, and varying image
+        quality. Multivariate statistical analysis helps reveal these sources
+        of variability by identifying the dominant trends present across the
+        particle population.
+
+        From a biological perspective, the extracted eigenimages may capture
+        conformational transitions, orientation-dependent differences, or
+        systematic experimental variations. This information provides a more
+        interpretable representation of the dataset and improves the ability
+        to separate structurally distinct particle populations during later
+        classification stages.
+
+        Inputs and General Workflow
+
+        The protocol requires a set of aligned particle images. Proper alignment
+        before analysis is essential because the statistical decomposition
+        assumes that corresponding structural regions occupy similar spatial
+        positions across all particles.
+
+        During execution, the protocol computes a reduced representation of
+        the dataset in terms of eigenimages and eigenvalues. Each particle is
+        projected into this reduced feature space, allowing the dominant modes
+        of structural variation to be analyzed more efficiently than in the
+        original image space.
+
+        Choice of Statistical Metric
+
+        The protocol provides several statistical distance metrics that define
+        how similarities between particles are evaluated. Different metrics may
+        emphasize different aspects of the data and can influence the biological
+        interpretation of variability.
+
+        The Euclidian metric corresponds to classical principal component
+        analysis and is appropriate for many general-purpose analyses. The
+        Chi-square metric is related to correspondence analysis and may provide
+        advantages when relative intensity distributions are important. The
+        Modulation metric is commonly recommended for cryo-EM applications
+        because it often provides improved robustness for noisy experimental
+        data.
+
+        In practical workflows, users frequently begin with the Modulation
+        metric and later compare results using alternative metrics if the
+        dataset contains unusual heterogeneity or challenging signal-to-noise
+        conditions.
+
+        Number of Factors and Dimensionality Reduction
+
+        One of the most important biological parameters is the number of
+        eigenimages retained during analysis. These factors represent the main
+        systematic variations present in the dataset.
+
+        Retaining too few factors may discard meaningful structural variability,
+        while retaining too many may introduce noise into subsequent analyses.
+        In many cryo-EM datasets, the first factors capture major conformational
+        differences or dominant orientation changes, whereas higher-order
+        factors progressively contain weaker information.
+
+        Biological users should consider the structural complexity of the
+        specimen when selecting the dimensionality. Flexible complexes or
+        heterogeneous assemblies often require more factors than highly rigid
+        particles.
+
+        Iterative Convergence and Stability
+
+        The eigenimage estimation process is iterative and gradually converges
+        toward a stable statistical representation of the dataset. The number
+        of iterations controls how extensively the protocol refines this
+        solution.
+
+        An overcorrection factor controls the convergence behavior of the
+        iterative optimization. Moderate values generally improve convergence
+        speed, whereas excessively large values may destabilize the process and
+        produce oscillatory behavior. Careful parameter selection therefore
+        contributes to stable and biologically meaningful results.
+
+        Masking and Biological Focus
+
+        Masking is a particularly important aspect of multivariate analysis
+        because it determines which image regions contribute to the statistical
+        decomposition.
+
+        Circular masks are convenient for globular particles and exploratory
+        analyses. They provide a simple way to exclude large solvent regions
+        that would otherwise dominate the variance calculations. Custom masks
+        are more appropriate for irregular or flexible biological assemblies,
+        especially when the user wishes to focus the analysis on a stable core
+        region while excluding highly mobile domains or surrounding noise.
+
+        From a biological standpoint, a well-designed mask should include the
+        structurally informative regions of the particle while minimizing
+        irrelevant background variation. Poor masking may reduce the quality
+        and interpretability of the resulting eigenimages.
+
+        Outputs and Interpretation
+
+        The protocol produces eigenimages, eigenvalues, and statistical
+        coordinate representations describing the principal modes of variation
+        within the dataset. These outputs are commonly used for downstream
+        classification and heterogeneity analysis.
+
+        Eigenimages should not necessarily be interpreted as direct physical
+        structures. Instead, they represent statistical patterns that describe
+        correlated variability among particles. Nevertheless, biologically
+        meaningful conformational transitions often become visible through the
+        dominant factors.
+
+        The reduced statistical coordinates generated by the protocol provide
+        the foundation for clustering and classification methods that separate
+        particles into structurally coherent groups.
+
+        Practical Recommendations
+
+        In routine cryo-EM workflows, it is often advisable to begin with a
+        moderate number of factors and inspect the resulting classifications
+        obtained downstream. Increasing the number of factors may reveal subtle
+        variability, but excessive dimensionality can amplify noise and reduce
+        classification stability.
+
+        Careful masking is frequently one of the most important determinants of
+        success. Flexible regions, detergent micelles, or large solvent areas
+        may dominate the variance if not properly excluded. For difficult
+        datasets, testing several masks and comparing the biological coherence
+        of the resulting classifications is often beneficial.
+
+        Users should also monitor convergence behavior when selecting the
+        overcorrection factor and iteration count. Stable convergence generally
+        produces more reliable statistical representations for subsequent
+        biological interpretation.
+
+        Final Perspective
+
+        For most cryo-EM analyses, multivariate statistical analysis is not
+        merely a mathematical compression technique but a biologically relevant
+        strategy for uncovering structural variability hidden within noisy
+        particle datasets. Appropriate selection of statistical metrics,
+        dimensionality, convergence settings, and masking approaches strongly
+        influences the quality of downstream classification and the reliability
+        of structural interpretation.
     """
     _label = 'msa'
     MSA_DIR = 'MSA'

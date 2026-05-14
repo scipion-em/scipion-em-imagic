@@ -44,10 +44,160 @@ class outputs(Enum):
 
 
 class ImagicProtMSAClassify(ProtClassify2D, ImagicProtocol):
-    """This protocols wraps MSA-CLASSIFY program of IMAGIC.
+    """
+    Performs two-dimensional particle classification using the IMAGIC
+    MSA-CLASSIFY workflow based on multivariate statistical analysis and
+    hierarchical ascendant classification methods.
 
-    It is based on variance-oriented hierarchical ascendant
-    classification program (an enhanced Ward-type algorithm).
+    AI Generated:
+
+    MSA Classification (ImagicProtMSAClassify) — User Manual
+        Overview
+
+        The MSA Classification protocol organizes cryo-EM particle images into
+        groups of structurally similar views using statistical classification
+        methods implemented in IMAGIC. Its primary objective is to separate
+        heterogeneous particle populations into more homogeneous classes that
+        can later be interpreted biologically, refined independently, or used
+        for quality assessment and downstream reconstruction workflows.
+
+        In single-particle cryo-EM, classification is one of the most important
+        stages for identifying structural variability, removing poor-quality
+        particles, and improving the interpretability of experimental data.
+        This protocol is particularly useful after multivariate statistical
+        analysis, where particles have already been projected into a reduced
+        dimensional space defined by eigenimages.
+
+        Biological Context and Purpose
+
+        Biological macromolecules often exist in multiple conformational or
+        compositional states. Even carefully prepared datasets may contain
+        damaged particles, contaminants, aggregation artifacts, or preferred
+        orientations. Classification helps distinguish these populations and
+        provides a clearer representation of the underlying structural states.
+
+        For biological interpretation, the resulting class averages can reveal
+        dominant conformations, identify rare structural states, or highlight
+        flexible regions. Well-defined classes frequently improve confidence in
+        subsequent three-dimensional analysis and may help determine whether
+        the sample contains biologically meaningful heterogeneity.
+
+        Inputs and General Workflow
+
+        The protocol requires particles that have already undergone multivariate
+        statistical analysis. These particles are represented within a reduced
+        feature space where the main structural variability is captured by
+        eigenimages. Classification is then performed using hierarchical
+        clustering methods that group particles according to their statistical
+        similarity.
+
+        The workflow generates a defined number of particle classes together
+        with representative class averages. Each particle becomes associated
+        with one class, allowing users to inspect the internal consistency of
+        the dataset and identify structurally coherent subsets.
+
+        Choice of Eigenimages
+
+        One of the most biologically important parameters is the number of
+        eigenimages used during classification. Eigenimages represent the main
+        directions of variability present in the dataset. Selecting too few may
+        ignore meaningful structural information, while selecting too many may
+        introduce noise and reduce classification stability.
+
+        In practical cryo-EM workflows, the first eigenimages often capture
+        major conformational differences or dominant view orientations. Higher
+        order eigenimages may progressively contain more noise. Biological users
+        generally benefit from testing several values and visually inspecting
+        whether class averages become more coherent or more fragmented.
+
+        Number of Classes
+
+        The number of requested classes strongly influences the granularity of
+        the final analysis. A small number of classes produces broader,
+        more inclusive particle groups that may combine related conformations.
+        A larger number separates subtle differences more effectively but may
+        also generate sparse or noisy classes.
+
+        From a biological perspective, exploratory analyses often begin with
+        moderate class counts to identify major structural trends. Subsequent
+        refinement may increase the number of classes to resolve finer
+        conformational variability or isolate rare states.
+
+        Ignoring Poor-Quality Particles
+
+        The protocol allows exclusion of a fraction of particles during the
+        hierarchical classification process. This option is particularly useful
+        for noisy experimental datasets where some particles contribute little
+        meaningful structural information.
+
+        Biologically, moderate exclusion values may improve the quality of class
+        averages by reducing the influence of damaged particles, contaminants,
+        or poorly aligned images. However, excessive exclusion may inadvertently
+        remove rare but biologically relevant conformations. Careful visual
+        inspection of the resulting classes is therefore recommended.
+
+        Downweighting Small Classes
+
+        Small classes can arise from noise, rare orientations, or genuine
+        structural heterogeneity. The protocol optionally reduces the influence
+        of these classes during classification to stabilize the overall
+        partitioning process.
+
+        In many biological datasets this improves robustness by preventing
+        isolated outliers from dominating the classification structure.
+        Nevertheless, users studying rare conformational states should evaluate
+        the results carefully, since biologically important minor populations
+        may also appear as small classes.
+
+        Refinement of Class Quality
+
+        An additional polishing stage can remove the weakest members from each
+        class according to their contribution to intra-class variability. This
+        process often produces cleaner and more interpretable class averages.
+
+        From a biological perspective, this option is especially valuable when
+        preparing class averages for visualization, particle cleaning, or
+        subsequent structural refinement. Removing inconsistent particles may
+        enhance structural detail and reduce blurring caused by heterogeneity.
+
+        Outputs and Interpretation
+
+        The protocol generates a set of two-dimensional classes together with
+        representative averages for each class. These averages summarize the
+        common structural features shared by the particles assigned to that
+        group.
+
+        Additional quality measurements describing variance and class coherence
+        help evaluate the reliability of the classification. Classes with low
+        internal variability and clear structural features are generally more
+        suitable for downstream refinement and interpretation.
+
+        Biological users should visually inspect class averages to determine
+        whether the classes represent meaningful structural states, preferred
+        orientations, contaminants, or alignment artifacts.
+
+        Practical Recommendations
+
+        In routine cryo-EM analysis, it is often advisable to begin with a
+        moderate number of eigenimages and classes, followed by careful visual
+        inspection of the resulting averages. If classes appear overly broad,
+        increasing the number of classes may reveal hidden heterogeneity. If
+        classes become noisy or fragmented, reducing the dimensionality or class
+        count may improve stability.
+
+        Datasets with substantial noise frequently benefit from excluding a
+        modest fraction of poor-quality particles or weak class members.
+        However, aggressive filtering should be avoided unless the biological
+        objective specifically prioritizes highly homogeneous subsets.
+
+        Final Perspective
+
+        For most cryo-EM workflows, classification is not simply a statistical
+        grouping operation but a biologically meaningful step that reveals the
+        structural organization of the dataset. Appropriate selection of the
+        number of eigenimages, class granularity, and quality filtering options
+        can substantially influence the interpretation of conformational
+        variability and the success of downstream structural analysis.
     """
     _label = 'msa-classify'
     CLASS_DIR = 'MSA-cls'
